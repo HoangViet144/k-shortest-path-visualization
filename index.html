@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+    <title>How to draw route Path on Map using Google Maps Direction API </title>
+    <style>
+        #map-layer {
+            max-width: 900px;
+            min-height: 550px;
+        }
+        .lbl-locations {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .locations-option {
+            display:inline-block;
+            margin-right: 15px;
+        }
+        .btn-draw {
+            background: green;
+            color: #ffffff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+</head>
+<body>
+<div id="map-layer"></div>
+<script>
+    let map;
+    function initMap() {
+        const mapLayer = document.getElementById("map-layer");
+        const centerCoordinates = new google.maps.LatLng(10.782877, 106.672105);
+        const defaultOptions = {center: centerCoordinates, zoom: 8};
+        map = new google.maps.Map(mapLayer, defaultOptions);
+
+        const directionsService = new google.maps.DirectionsService;
+        const directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(map);
+
+        drawPath(directionsService, directionsDisplay);
+    }
+
+    function drawPath(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin: "268 Lý Thường Kiệt, Phường 14, Quận 10, Thành phố Hồ Chí Minh, Vietnam",
+            destination: "45 Hàn Thuyên, Bến Nghé, Quận 11, Thành phố Hồ Chí Minh, Vietnam",
+            travelMode: "DRIVING",
+            waypoints: [
+                {
+                    location: '270 B, Lý Thường Kiệt, Phường 14, Quận 10, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '10.780678,106.658833'
+                },
+                {
+                    location: '175 Đ. Thành Thái, Phường 14, Quận 10, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '307A, Số Cũ/155A Tô Hiến Thành, Quận 10, Thành phố Hồ Chí Minh 700000, Vietnam'
+                },
+                {
+                    location: 'Chago, 816 Đ. Sư Vạn Hạnh, Phường 12, Quận 10, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '10.769610,106.670836'
+                },
+                {
+                    location: '231 Đ. 3 Tháng 2, Phường 10, Quận 10, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '10.773795,106.677803'
+                },
+                {
+                    location: 'Binh, Đ. Võ Thị Sáu Vòng Xoay Công Trường Dân Chủ, & Bùng, Quận 3, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '241Bis Đ. Cách Mạng Tháng 8, Phường 4, Quận 3, Thành phố Hồ Chí Minh 700000, Vietnam'
+                },
+                {
+                    location: '90 Đ. Cách Mạng Tháng 8, Phường 6, Quận 3, Thành phố Hồ Chí Minh, Vietnam'
+                },
+                {
+                    location: '10.773615,106.689442'
+                },
+                {
+                    location: '10.779552,106.694980'
+                }
+            ]
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Problem in showing direction due to ' + status);
+            }
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap">
+</script>
+</body>
+</html>
